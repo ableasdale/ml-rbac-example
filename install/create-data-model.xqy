@@ -5,10 +5,10 @@ xquery version "1.0-ml";
  :
  : @version 1.0
  :)
- 
- import module namespace admin = "http://marklogic.com/xdmp/admin" 
+
+import module namespace admin = "http://marklogic.com/xdmp/admin" 
 		  at "/MarkLogic/admin.xqy";
- 
+		  
  
 declare variable $MAIN-BOOK-CATALOGUE as xs:string := "main-book-catalogue"; 
 declare variable $RESTRICTED-BOOK-CATALOGUE as xs:string := "restricted-book-catalogue"; 
@@ -56,6 +56,10 @@ declare function local:create-http-application-server() {
 (::::::::::::::::::::::::::)
 (: Main Module Code below :)
 (::::::::::::::::::::::::::)
+
+(: To install: 
+1. *Ensure Documents Database is selected* 
+2. Copy and paste entire module into a buffer in Query Console and execute :)
 
 (local:get-sample-medline-data(), 
 local:create-http-application-server()) 

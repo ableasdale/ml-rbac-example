@@ -187,8 +187,15 @@ declare function local:create-privileges() as empty-sequence() {
 (: Main Module Code below :)
 (::::::::::::::::::::::::::)
 
+(: To install: 
+1. *Ensure Security Database is selected* 
+2. Copy and paste entire module into a buffer in Query Console :)
+
+(: Run this first: :)
 (: local:create-primary-roles() :)
- 
+
+(: Then run this :)
 (: local:create-secondary-roles() :)
 
-(local:create-privileges(), local:create-users())
+(: Then you can run this below to create everything else :)
+(: (local:create-privileges(), local:create-users()) :)
