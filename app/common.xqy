@@ -16,6 +16,19 @@ common:html-page-enclosure($html)
 declare function common:html-head(){
     <link rel="stylesheet" type="text/css" href="http://www.blueprintcss.org/blueprint/screen.css" />
 };
+
+declare function common:html-page-header(){
+<div id="page-header">
+ <div id="header" class="span-24 last">
+          <h1>Application Test</h1>
+        </div>
+        <hr />
+        <div id="subheader" class="span-24 last">
+          <h3 class="alt">You are logged in as {xdmp:get-current-user()} [<a href="/logout.xqy">logout</a>]</h3>
+        </div>
+        <hr />
+  </div>      
+};
  
 
 declare function common:html-page-enclosure($content as element()) as element(html){
