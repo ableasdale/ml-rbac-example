@@ -32,9 +32,8 @@ return element li {element a {attribute href {concat("/view.xqy?id=",xdmp:node-u
 (::::::::::::::::::::::::::)
 
 common:build-page(
- 
-<div id="content">
-<h1>Application Test</h1>
+<div class="container">
+<h1>Application Test</h1>  
 <div id="status">{ 
 if (xdmp:get-current-user() eq "nobody") 
 then (common:login-form())

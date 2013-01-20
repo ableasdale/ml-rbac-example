@@ -13,9 +13,14 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
 common:html-page-enclosure($html)
 };
 
+declare function common:html-head(){
+    <link rel="stylesheet" type="text/css" href="http://www.blueprintcss.org/blueprint/screen.css" />
+};
+ 
+
 declare function common:html-page-enclosure($content as element()) as element(html){
 element html {attribute lang {"en"}, attribute xml:lang {"en"},
-    element head {},
+    element head {common:html-head()},
     element body {$content}
 }
 };

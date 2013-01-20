@@ -6,7 +6,7 @@ declare default function namespace "http://www.w3.org/2005/xpath-functions";
 declare variable $docid := xdmp:get-request-field("id");
 
 common:build-page(
-<div id="content">
+<div class="container">
 <h1>Viewing doc: {$docid}</h1>
 
 <form method="post" action="/edit.xqy" accept-charset="utf-8" enctype="multipart/form-data"> 
