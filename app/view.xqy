@@ -43,7 +43,14 @@ element form {attribute method {"post"}, attribute action {"/comment.xqy"}, attr
     }    
 } 
 };
- 
+
+(::::::::::::::::::::::::::)
+(: Main Module Code below :)
+(::::::::::::::::::::::::::)
+
+if (xdmp:get-current-user() eq "nobody")
+then (xdmp:redirect-response("/"))
+else( 
 common:build-page(
 element div {attribute class {"container"},
     common:html-page-header(concat("Viewing Doc: ", $docid)),
@@ -51,3 +58,4 @@ element div {attribute class {"container"},
     local:comment-on-content(),
     local:publisher-component() 
 })
+)

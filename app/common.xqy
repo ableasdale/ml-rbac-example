@@ -8,7 +8,7 @@ declare namespace xhtml = "http://www.w3.org/1999/xhtml";
  
 (: note that application/xhtml+xml is *still* not supported by several modern browsers... :)
  
-declare function common:build-page($html as element()){
+declare function common:build-page($html as element(div)){
 xdmp:set-response-content-type("text/html; charset=utf-8"),
 '<?xml version="1.0" encoding="UTF-8"?>',
 '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
