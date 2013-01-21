@@ -7,10 +7,9 @@ declare variable $docid := xdmp:get-request-field("id");
 
 common:build-page(
 <div class="container">
-<h1>Viewing doc: {$docid}</h1>
-
+{common:html-page-header(concat("Viewing Doc: ", $docid))}
 <form method="post" action="/edit.xqy" accept-charset="utf-8" enctype="multipart/form-data"> 
-    <textarea name="doc" rows="20" cols="80">
+    <textarea name="doc">
         {xdmp:quote(doc($docid))}
     </textarea> 
     <input type="hidden" name="uri" value="{$docid}" />

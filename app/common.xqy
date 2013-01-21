@@ -2,6 +2,8 @@ xquery version "1.0-ml";
 
 module namespace common="http://www.example.com/common";
 
+declare default function namespace "http://www.w3.org/2005/xpath-functions";
+
 declare namespace xhtml = "http://www.w3.org/1999/xhtml";
  
 (: note that application/xhtml+xml is *still* not supported by several modern browsers... :)
@@ -17,15 +19,34 @@ declare function common:html-head(){
     <link rel="stylesheet" type="text/css" href="http://www.blueprintcss.org/blueprint/screen.css" />
 };
 
-declare function common:html-page-header(){
+declare function common:show-current-user(){
+if (xdmp:get-current-user() eq "nobody")
+then (element p {element em {"You are not logged in"}})
+else (element p {"You are logged in as ", element strong {xdmp:get-current-user()}}) 
+};
+
+declare function common:create-navlink($href as xs:string, $name as xs:string, $end as xs:boolean){
+    "[", element a {attribute href {$href}, $name} ,"]", 
+    if(not($end))
+    then("&nbsp;")
+    else()
+};
+
+declare function common:create-navlinks(){
+element p {attribute class {"right"}, 
+    common:create-navlink("/", "Home", false()),
+    common:create-navlink("/logout.xqy", "Logout", true()) 
+}  
+};
+
+declare function common:html-page-header($header as xs:string){
 <div id="page-header">
  <div id="header" class="span-24 last">
-          <h1>Application Test</h1>
+          <h1>{$header}</h1>
         </div>
         <hr />
-        <div id="subheader" class="span-24 last">
-          <h3 class="alt">You are logged in as {xdmp:get-current-user()} [<a href="/logout.xqy">logout</a>]</h3>
-        </div>
+        <div id="subheader" class="span-12">{common:show-current-user()}</div>
+        <div id="subheader" class="span-12 last">{common:create-navlinks()}</div>
         <hr />
   </div>      
 };
@@ -42,8 +63,8 @@ declare function common:login-form() as element(form) {
 element form { attribute method {"post"}, attribute action {"/login.xqy"},
     element fieldset {
         element legend {"Log-in:"},
-        element p {"Username: ", element input {attribute type {"text"}, attribute name {"username"}}},
-        element p {"Password: ", element input {attribute type {"password"}, attribute name {"password"}}},
+        element p {element label {attribute for {"username"}, "Username: "}, element br {}, element input {attribute class {"title"}, attribute type {"text"}, attribute name {"username"}}},
+        element p {element label {attribute for {"password"}, "Password: "}, element br {}, element input {attribute class {"title"}, attribute type {"password"}, attribute name {"password"}}},
         element p {element input {attribute type {"submit"}, attribute name {"login"}, attribute value {"Login!"}}} 
     }
 }

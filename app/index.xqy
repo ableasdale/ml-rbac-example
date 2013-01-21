@@ -33,7 +33,7 @@ return element li {element a {attribute href {concat("/view.xqy?id=",xdmp:node-u
 
 common:build-page(
 <div class="container">
-{common:html-page-header()} 
+{common:html-page-header("Application Test")} 
 <div id="status">{ 
 if (xdmp:get-current-user() eq "nobody") 
 then (common:login-form())
@@ -45,6 +45,7 @@ else (
 return element li {element a {attribute href {concat("/view.xqy?id=",xdmp:node-uri($doc))}, xdmp:node-uri($doc)}}
 }
 </ul>
+<hr/>
 {local:summary-restricted-catalogue()} 
 {local:summary-unpublished-catalogue()}
 </div>
