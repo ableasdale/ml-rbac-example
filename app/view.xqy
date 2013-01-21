@@ -6,8 +6,18 @@ declare default function namespace "http://www.w3.org/2005/xpath-functions";
 
 declare variable $docid := xdmp:get-request-field("id");
 
-declare function local:comment-on-content() as element(form){
+declare function local:viewer-component() as element(form) {
+element form {attribute method {"post"}, attribute action {"/edit.xqy"}, attribute accept-charset{"utf8"}, attribute enctype{"multipart/form-data"},
+    element fieldset {
+        element legend {"Viewing doc ", $docid},
+        element textarea {attribute name {"doc"}, xdmp:quote(doc($docid))},   
+        element input {attribute type {"hidden"}, attribute name {"uri"}, attribute value {$docid}},
+        element p {element input {attribute type {"submit"}, attribute name {"save"}, attribute value {"Save/Edit"}}, " (Author/Editor/Publisher role required)"}   
+    }        
+} 
+};
 
+declare function local:comment-on-content() as element(form) { 
 element form {attribute method {"post"}, attribute action {"/comment.xqy"}, attribute accept-charset{"utf8"}, attribute enctype{"multipart/form-data"},
     element fieldset {
         element legend {"Comment on doc ", $docid}, 
@@ -23,24 +33,21 @@ element form {attribute method {"post"}, attribute action {"/comment.xqy"}, attr
 } 
 };
 
-common:build-page(
-<div class="container">
-{common:html-page-header(concat("Viewing Doc: ", $docid))}
-<form method="post" action="/edit.xqy" accept-charset="utf-8" enctype="multipart/form-data"> 
-    <textarea name="doc">
-        {xdmp:quote(doc($docid))}
-    </textarea> 
-    <input type="hidden" name="uri" value="{$docid}" />
-    <p><input type="submit" name="save" value="Save/Edit" /> (Author/Editor/Publisher role required)</p>
-</form>  
-{local:comment-on-content()} 
-<form method="post" action="/publish.xqy" accept-charset="utf-8" enctype="multipart/form-data">
-<fieldset>
-    <legend>Publish doc {$docid}:</legend>
-    <p>This can only be performed if the doc is unpublished and if the user is a publisher</p>
-    <input type="hidden" name="uri" value="{$docid}" /> 
-    <p><input type="submit" name="publish" value="Publish" /> (Publishers only)</p>
-</fieldset>    
-</form>      
+declare function local:publisher-component() as element(form) {
+element form {attribute method {"post"}, attribute action {"/comment.xqy"}, attribute accept-charset{"utf8"}, attribute enctype{"multipart/form-data"},
+    element fieldset {
+        element legend {"Publish doc ", $docid},
+        element p {attribute class {"notice"}, "This can only be performed if the doc is ", element strong {"unpublished"}, " and if the user has the ", element strong {"publisher"}, " role"},
+        element input {attribute type {"hidden"}, attribute name {"uri"}, attribute value {$docid}},
+        element p {element input {attribute type {"submit"}, attribute name {"publish"}, attribute value {"Publish"}}, " (Publishers only)"}  
+    }    
+} 
+};
  
-</div>)
+common:build-page(
+element div {attribute class {"container"},
+    common:html-page-header(concat("Viewing Doc: ", $docid)),
+    local:viewer-component(),
+    local:comment-on-content(),
+    local:publisher-component() 
+})
