@@ -3,6 +3,7 @@ xquery version "1.0-ml";
 import module namespace common = "http://www.example.com/common" at "/common.xqy";
 
 declare default function namespace "http://www.w3.org/2005/xpath-functions";
+
 declare variable $docid := xdmp:get-request-field("id");
 
 common:build-page(
@@ -39,6 +40,5 @@ return
     <p><input type="submit" name="publish" value="Publish" /> (Publishers only)</p>
 </fieldset>    
 </form>      
-
- <p>[<a href="/">Home</a>]</p>
+ 
 </div>)

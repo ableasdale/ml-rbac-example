@@ -15,8 +15,8 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
 common:html-page-enclosure($html)
 };
 
-declare function common:html-head(){
-    <link rel="stylesheet" type="text/css" href="http://www.blueprintcss.org/blueprint/screen.css" />
+declare function common:html-head() {
+element link {attribute rel {"stylesheet"}, attribute type{"text/css"}, attribute href {"http://www.blueprintcss.org/blueprint/screen.css"}}
 };
 
 declare function common:show-current-user(){
@@ -39,16 +39,16 @@ element p {attribute class {"right"},
 }  
 };
 
-declare function common:html-page-header($header as xs:string){
-<div id="page-header">
- <div id="header" class="span-24 last">
-          <h1>{$header}</h1>
-        </div>
-        <hr />
-        <div id="subheader" class="span-12">{common:show-current-user()}</div>
-        <div id="subheader" class="span-12 last">{common:create-navlinks()}</div>
-        <hr />
-  </div>      
+declare function common:html-page-header($header as xs:string) as element(div) {
+element div {attribute id {"page-header"},
+    element div {attribute id {"header"}, attribute class {"span-24 last"},
+        element h1 {$header}
+    },
+    element hr {},
+    element div {attribute id {"subheader"}, attribute class {"span-12"}, common:show-current-user()},    
+    element div {attribute id {"subheader"}, attribute class {"span-12 last"}, common:create-navlinks()},     
+    element hr {}
+} 
 };
  
 
