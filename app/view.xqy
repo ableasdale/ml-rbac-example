@@ -34,7 +34,7 @@ element form {attribute method {"post"}, attribute action {"/comment.xqy"}, attr
 };
 
 declare function local:publisher-component() as element(form) {
-element form {attribute method {"post"}, attribute action {"/comment.xqy"}, attribute accept-charset{"utf8"}, attribute enctype{"multipart/form-data"},
+element form {attribute method {"post"}, attribute action {"/publish.xqy"}, attribute accept-charset{"utf8"}, attribute enctype{"multipart/form-data"},
     element fieldset {
         element legend {"Publish doc ", $docid},
         element p {attribute class {"notice"}, "This can only be performed if the doc is ", element strong {"unpublished"}, " and if the user has the ", element strong {"publisher"}, " role"},

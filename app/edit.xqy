@@ -14,6 +14,8 @@ let $e := try {
     $e
 } 
 return if (local-name($e) eq "error")
-then (common:build-page(<div class="container"><div class="error"><h1>{$e/error:code/string()} Exception Caught</h1><h2>{$e/error:message/string()}</h2><p>Details below:</p><textarea rows="20" cols="80">{$e}</textarea></div></div>))
-else (common:build-page(<div class="container"><div class="success"><h1>Doc {xdmp:get-request-field("uri")} has been updated</h1><p>[<a href="{concat("/view.xqy?id=", xdmp:get-request-field("uri"))}">View</a>] [<a href="/">Home</a>]</p></div></div>)) 
- 
+then (common:build-page(common:exception($e)))
+else (common:build-page(common:success(
+    concat("Doc ", xdmp:get-request-field("uri"), " has been updated"), 
+    element p {common:create-navlink(concat("/view.xqy?id=", xdmp:get-request-field("uri")), concat("View Document ", xdmp:get-request-field("uri")), false() )}
+)))

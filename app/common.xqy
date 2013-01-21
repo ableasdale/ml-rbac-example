@@ -8,6 +8,26 @@ declare namespace xhtml = "http://www.w3.org/1999/xhtml";
  
 (: note that application/xhtml+xml is *still* not supported by several modern browsers... :)
  
+declare function common:exception($e as element(error:error)){
+element div {attribute class{"container"},
+    common:html-page-header(concat("Exception Caught: ", $e/error:code/string())),
+    element div {attribute class{"error"},
+        element h2 {$e/error:message/string()},
+        element p {"Details below:"},
+        element textarea {$e}
+    } 
+} 
+};  
+ 
+declare function common:success($message as xs:string, $html as element()){
+element div {attribute class{"container"},
+    common:html-page-header($message), 
+    element div {attribute class{"success"},
+        $html
+    } 
+} 
+};   
+
 declare function common:build-page($html as element(div)){
 xdmp:set-response-content-type("text/html; charset=utf-8"),
 '<?xml version="1.0" encoding="UTF-8"?>',
