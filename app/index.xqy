@@ -40,7 +40,8 @@ element div {attribute class {"container"},
     else (
         local:collection-summary("main-book-catalogue", "Main Book Catalogue"),
         local:collection-summary("restricted-book-catalogue", "Restricted Book Catalogue"),
-        local:collection-summary("unpublished-book-catalogue", "Unpublished Book Catalogue") 
+        local:collection-summary("unpublished-book-catalogue", "Unpublished Book Catalogue"),
+        common:html-page-footer()
     )
 })
  

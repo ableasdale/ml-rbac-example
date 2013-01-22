@@ -66,10 +66,17 @@ element div {attribute id {"page-header"},
     },
     element hr {},
     element div {attribute id {"subheader"}, attribute class {"span-12"}, common:show-current-user()},    
-    element div {attribute id {"subheader"}, attribute class {"span-12 last"}, common:create-navlinks()},     
+    element div {attribute id {"subheader"}, attribute class {"span-12 last"}, common:create-navlinks()},      
     element hr {}
 } 
 };
+ 
+declare function common:html-page-footer() as element(div){
+element div {attribute id {"footer"},   
+    element p {attribute align {"center"}, "Application footer"},
+    element hr {}
+}   
+}; 
  
 
 declare function common:html-page-enclosure($content as element()) as element(html){
@@ -98,5 +105,4 @@ declare private function common:random-hex($seq as xs:integer*) as xs:string+ {
 
 declare function common:guid() as xs:string {
   fn:string-join(common:random-hex((8,4,4,4,12)),"-")
-};
-
+}; 

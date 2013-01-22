@@ -56,6 +56,7 @@ element div {attribute class {"container"},
     common:html-page-header(concat("Viewing Doc: ", $docid)),
     local:viewer-component(),
     local:comment-on-content(),
-    local:publisher-component() 
+    local:publisher-component(),
+    common:html-page-footer()
 })
 )
